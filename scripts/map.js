@@ -1,13 +1,55 @@
-var map = L.map('map').setView([49.01402868891351, 8.40428765576787], 13);
+// class MapHandler {
 
-L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-    maxZoom: 18,
-    id: 'mapbox/streets-v11',
-    tileSize: 512,
-    zoomOffset: -1,
-    accessToken: 'pk.eyJ1IjoiZmF2ZW4iLCJhIjoiY2t6eTQ1bTcxMDdpeDJvcDdyMXpsdWY2eSJ9.WOT1zI_rz4ESogcJYieYMQ'
-}).addTo(map);
+    // constructor (){
+    //     this.initMap();
+    // };
+    var map;
+    var todoMarkers = [];
+
+    function initMap(location) {
+        map = L.map('map').setView(location, 13);
+    
+        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            maxZoom: 18,
+            id: 'mapbox/streets-v11',
+            tileSize: 512,
+            zoomOffset: -1,
+            accessToken: 'pk.eyJ1IjoiZmF2ZW4iLCJhIjoiY2t6eTQ1bTcxMDdpeDJvcDdyMXpsdWY2eSJ9.WOT1zI_rz4ESogcJYieYMQ'
+        }).addTo(map);
+    }
+
+    function addTodoMarker(todo) {
+        var markerOptions = {
+            title: todo.title,
+            riseOnHover: 'true',
+        };
+        
+        var marker = L.marker([todo.latitude, todo.longitude], markerOptions);
+        todoMarkers.push(todo.id, marker);
+
+        marker.addTo(map);
+    }
+
+
+    function setMapFocus(coord) {
+        map.setView(coord, 13);
+    }
+
+    function showLocationMarker(coord) {
+        var markerOptions = {
+            color: 'black',
+            fillColor: 'red',
+            opacity: 1,
+            fillOpacity: 1
+        };
+
+        var marker = L.circleMarker(coord, markerOptions);
+        marker.addTo(map);
+}
+
+// }
+
 
 // var marker = L.marker([51.5, -0.09]).addTo(map);
 // marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
@@ -28,19 +70,10 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
 
 // map.on('click', onMapClick);
 
-
-function setMapFocus(lat, long) {
-    map.setView([lat, long], 13);
+class TodoMarker {
+    constructor(id, marker) {
+        this.marker = marker;
+        this.id = id;
+    }
 }
 
-function showLocationMarker(lat, long) {
-    var markerOptions = {
-        color: 'black',
-        fillColor: 'red',
-        opacity: 1,
-        fillOpacity: 1
-    };
-
-    var marker = L.circleMarker([lat, long], markerOptions);
-    marker.addTo(map);
-}
