@@ -7,6 +7,7 @@ test = new Test();
 // test.testMethod();
 // console.log("Helooooo");
 
+mapHandler = new MapHandler();
 
 
 window.onload = function() {
@@ -16,8 +17,8 @@ window.onload = function() {
     // alert("Hello");
     test.testMethod();
     console.log("Helooooo2");
-
-
+    
+    
 };
 
 

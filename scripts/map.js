@@ -5,16 +5,16 @@ class Coord {
     }
 };
 
-// class MapHandler {
+class MapHandler {
 
-    // constructor (){
-    //     this.initMap();
-    // };
-    var map;
-    var todoMarkers = [];
+    constructor (){
+        this.initMap(new Coord(49.01402868891351, 8.40428765576787));
+    };
+    // var map;
+    // var todoMarkers = [];
 
-    function initMap(coord) {
-        map = L.map('map').setView([coord.lat, coord.long], 13);
+     initMap(coord) {
+        this.map = L.map('map').setView([coord.lat, coord.long], 13);
     
         L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
             attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -23,34 +23,34 @@ class Coord {
             tileSize: 512,
             zoomOffset: -1,
             accessToken: 'pk.eyJ1IjoiZmF2ZW4iLCJhIjoiY2t6eTQ1bTcxMDdpeDJvcDdyMXpsdWY2eSJ9.WOT1zI_rz4ESogcJYieYMQ'
-        }).addTo(map);
+        }).addTo(this.map);
 
-        map.on('click', onMapClick);
+        // this.map.on('click', onMapClick);
 
-        lastClickedMapPosition = location
+        // lastClickedMapPosition = location
     }
 
-    function addTodoMarker(todo) {
-        var markerOptions = {
-            title: todo.title,
-            riseOnHover: 'true',
-        };
+    // function addTodoMarker(todo) {
+    //     var markerOptions = {
+    //         title: todo.title,
+    //         riseOnHover: 'true',
+    //     };
         
-        var marker = L.marker([todo.coord.lat, todo.coord.long], markerOptions);
+    //     var marker = L.marker([todo.coord.lat, todo.coord.long], markerOptions);
 
 
-        marker.bindPopup("<b>"+ todo.title + "</b><br>" + todo.description).openPopup();
-        marker.addTo(map);
+    //     marker.bindPopup("<b>"+ todo.title + "</b><br>" + todo.description).openPopup();
+    //     marker.addTo(map);
 
-        todoMarkers.push(todo.id, marker);
+    //     todoMarkers.push(todo.id, marker);
+    // }
+
+
+     setMapFocus(coord) {
+        this.map.setView([coord.lat, coord.long], 13);
     }
 
-
-    function setMapFocus(coord) {
-        map.setView([coord.lat, coord.long], 13);
-    }
-
-    function showLocationMarker(coord) {
+    showLocationMarker(coord) {
         var markerOptions = {
             color: 'black',
             fillColor: 'red',
@@ -60,25 +60,25 @@ class Coord {
 
         var marker = L.circleMarker([coord.lat, coord.long], markerOptions);
         marker.bindPopup("<b>You are here</b>").openPopup();
-        marker.addTo(map);
+        marker.addTo(this.map);
 }
 
 
 
-var lastClickedMapPosition = null;
+// var lastClickedMapPosition = null;
 
-function onMapClick(e) {
-    lastClickedMapPosition = new Coord(e.lat, e.long);
-    L.popup()
-        .setLatLng(e.latlng)
-        .setContent("New ToDo Item here")
-        .openOn(map);
-}
-
-
-
-
+// function onMapClick(e) {
+//     lastClickedMapPosition = new Coord(e.lat, e.long);
+//     L.popup()
+//         .setLatLng(e.latlng)
+//         .setContent("New ToDo Item here")
+//         .openOn(map);
 // }
+
+
+
+
+};
 
 
 // var marker = L.marker([51.5, -0.09]).addTo(map);
@@ -105,5 +105,5 @@ class TodoMarker {
         this.marker = marker;
         this.id = id;
     }
-}
+};
 
