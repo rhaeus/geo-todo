@@ -1,19 +1,25 @@
 // var mapHandler;
 // var locationHandler;
 
+
+
+test = new Test();
+// test.testMethod();
+// console.log("Helooooo");
+
+
+
 window.onload = function() {
-    initMap([49.01402868891351, 8.40428765576787]);
-    getLocation();
-    initTodos();
+    // initMap(new Coord(49.01402868891351, 8.40428765576787));
+    // getLocation();
+    // initTodos();
+    // alert("Hello");
+    test.testMethod();
+    console.log("Helooooo2");
+
+
 };
 
-function showLocation(position) {
-    var lat = position.coords.latitude; 
-    var long = position.coords.longitude;
-    alert(mapHandler);
-    mapHandler.setMapFocus([lat, long]);
-    // this.mapHandler.showLocationMarker([lat, long]);
-}
 
 
 

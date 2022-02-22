@@ -1,3 +1,10 @@
+class Coord {
+    constructor(lat, long) {
+        this.lat = lat;
+        this.long = long;
+    }
+};
+
 // class MapHandler {
 
     // constructor (){
@@ -6,8 +13,8 @@
     var map;
     var todoMarkers = [];
 
-    function initMap(location) {
-        map = L.map('map').setView(location, 13);
+    function initMap(coord) {
+        map = L.map('map').setView([coord.lat, coord.long], 13);
     
         L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
             attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -17,6 +24,10 @@
             zoomOffset: -1,
             accessToken: 'pk.eyJ1IjoiZmF2ZW4iLCJhIjoiY2t6eTQ1bTcxMDdpeDJvcDdyMXpsdWY2eSJ9.WOT1zI_rz4ESogcJYieYMQ'
         }).addTo(map);
+
+        map.on('click', onMapClick);
+
+        lastClickedMapPosition = location
     }
 
     function addTodoMarker(todo) {
@@ -25,15 +36,18 @@
             riseOnHover: 'true',
         };
         
-        var marker = L.marker([todo.latitude, todo.longitude], markerOptions);
-        todoMarkers.push(todo.id, marker);
+        var marker = L.marker([todo.coord.lat, todo.coord.long], markerOptions);
 
+
+        marker.bindPopup("<b>"+ todo.title + "</b><br>" + todo.description).openPopup();
         marker.addTo(map);
+
+        todoMarkers.push(todo.id, marker);
     }
 
 
     function setMapFocus(coord) {
-        map.setView(coord, 13);
+        map.setView([coord.lat, coord.long], 13);
     }
 
     function showLocationMarker(coord) {
@@ -44,9 +58,25 @@
             fillOpacity: 1
         };
 
-        var marker = L.circleMarker(coord, markerOptions);
+        var marker = L.circleMarker([coord.lat, coord.long], markerOptions);
+        marker.bindPopup("<b>You are here</b>").openPopup();
         marker.addTo(map);
 }
+
+
+
+var lastClickedMapPosition = null;
+
+function onMapClick(e) {
+    lastClickedMapPosition = new Coord(e.lat, e.long);
+    L.popup()
+        .setLatLng(e.latlng)
+        .setContent("New ToDo Item here")
+        .openOn(map);
+}
+
+
+
 
 // }
 

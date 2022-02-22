@@ -1,3 +1,10 @@
+class Test {
+    testMethod() {
+        console.log("Helooooo");
+        // alert("Hello");
+    }
+}
+
 // class LocationHandler {
     function getLocation() {
         if (navigator.geolocation) {
@@ -8,10 +15,9 @@
     }
 
     function getPositionSuccess(position) {
-        var lat = position.coords.latitude; 
-        var long = position.coords.longitude;
-        setMapFocus([lat, long]);
-        showLocationMarker([lat, long]);
+        var coord = new Coord(position.coords.latitude, position.coords.longitude)
+        setMapFocus(coord);
+        showLocationMarker(coord);
     }
 
     function getPositionFail(error) {
