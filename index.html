@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="de">
+	<head>
+		<meta charset="utf-8">
+		<!-- Für Mobilgeräte initialen Zoom abschalten -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Angaben für Suchmaschinen -->
+		<!-- Beschreibung -->
+		<meta name="description" content="Eine Seite über HTML und CSS.">
+		<!-- Stichwörter -->
+		<meta name="keywords" content="HTML, CSS, Javascript">
+		<title>
+			Geo Todo
+		</title>
+		<!-- Leaflet map library -->
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+		integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+		crossorigin=""/>
+		 <!-- Make sure you put this AFTER Leaflet's CSS -->
+		<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+		integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+		crossorigin=""></script>
+
+
+
+
+		<link id="css" rel="stylesheet" type="text/css" href="styles/map.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		<!-- async Seite weiterladen während Skript eingelesen wird!! -->
+		<script src="scripts/map.js" async></script>
+		<script src="scripts/gps.js" async></script>
+	</head>
+	<body>
+		<main>
+			<div id="map"></div>
+
+			<div id="list">List</div>
+
+		</main>
+	</body>
+</html>
