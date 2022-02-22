@@ -1,39 +1,19 @@
-class Test {
-    testMethod() {
-        console.log("Helooooo");
-        // alert("Hello");
-    }
-}
-
-// class LocationHandler {
-    function getLocation() {
+class LocationHandler {
+    getLocation(successCallback) {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(getPositionSuccess, getPositionFail);
+            navigator.geolocation.getCurrentPosition(successCallback, this.getPositionFail);
         } else { 
             alert("Geolocation is not supported by this browser.");
         }
     }
 
-    function getPositionSuccess(position) {
-        var coord = new Coord(position.coords.latitude, position.coords.longitude)
-        setMapFocus(coord);
-        showLocationMarker(coord);
-    }
 
-    function getPositionFail(error) {
+     getPositionFail(error) {
         showError(error);
     }
     
-    // showPosition(position) {
-    //     showPositionOnMap(position.coords.latitude, position.coords.longitude)
-    // }
     
-    // showPositionOnMap(lat, long) {
-    //     setMapFocus(lat, long);
-    //     showLocationMarker(lat, long);
-    // }
-    
-    function showError(error) {
+    showError(error) {
         switch(error.code) {
             case error.PERMISSION_DENIED:
                 alert("User denied the request for Geolocation.");
@@ -50,6 +30,6 @@ class Test {
         }
     }
 
-// }
+}
 
 

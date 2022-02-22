@@ -1,25 +1,33 @@
-// var mapHandler;
-// var locationHandler;
 
-
-
-test = new Test();
-// test.testMethod();
-// console.log("Helooooo");
-
-mapHandler = new MapHandler();
+var mapHandler = new MapHandler(new Coord(49.01402868891351, 8.40428765576787));
+var locationHandler = new LocationHandler();
+var todoHandler = new TodoHandler();
 
 
 window.onload = function() {
     // initMap(new Coord(49.01402868891351, 8.40428765576787));
-    // getLocation();
-    // initTodos();
-    // alert("Hello");
-    test.testMethod();
-    console.log("Helooooo2");
-    
-    
+    locationHandler.getLocation(getPositionSuccess);
+    var todos = todoHandler.getTodoList();
+    for (let i = 0; i < todos.length; i++) {
+        mapHandler.addTodoMarker(todos[i]);
+    }
+
 };
+
+function getPositionSuccess(position) {
+    var coord = new Coord(position.coords.latitude, position.coords.longitude);
+    mapHandler.setMapFocus(coord);
+    mapHandler.showLocationMarker(coord);
+
+}
+
+function popupCallback() {
+    console.log("clickydiclick");
+}
+
+function listItemClickCallback(item) {
+    mapHandler.focusID(item.id);
+}
 
 
 

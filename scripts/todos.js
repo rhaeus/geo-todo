@@ -1,57 +1,55 @@
 class Todo {
-    constructor(title, description, coord) {
-        // this.id = id;
+    constructor(id, title, description, coord) {
+        this.id = id;
         this.title = title;
         this.description = description;
         this.coord = coord;
-        // this.latitude = location[0];
-        // this.longitude = location[1];
-        // this.lat = lat;
-        // this.long = long;
     }
 }
 
-// class TodoHandler {
-    // var 
-    // constructor() {
-    //     this.initTodos();
-    // }
+var IDGenerator = (function() {
+    var id = 0;
+  
+    return { // public interface
+      getID: function () {
+        return id++;
+      }
+    };
+  })();
 
-    var todoList = [];
-
-    function loadTodos() {
-        todoList.push(new Todo("OneTitle", "OneDescription", new Coord(49.2320461231584, 9.164004935327187)));
-        todoList.push(new Todo("TwoTitle", "TwoDescription", new Coord(49.23899815777546, 9.09671165040421)));
-        todoList.push(new Todo("ThreeTitle", "ThreeDescription", new Coord(49.25176067682491, 9.039397436437302)));
+class TodoHandler {
+    constructor() {
+        this.initTodos();
     }
 
-    function addTodo(title, description, coord) {
-        todoList.push(new Todo(title, description, coord));
+    loadTodos() {
+        this.todoList.push(new Todo(IDGenerator.getID(), "OneTitle", "OneDescription", new Coord(49.2320461231584, 9.164004935327187)));
+        this.todoList.push(new Todo(IDGenerator.getID(), "TwoTitle", "TwoDescription", new Coord(49.23899815777546, 9.09671165040421)));
+        this.todoList.push(new Todo(IDGenerator.getID(), "ThreeTitle", "ThreeDescription", new Coord(49.25176067682491, 9.039397436437302)));
+    }
+
+    addTodo(title, description, coord) {
+        this.todoList.push(new Todo(title, description, coord));
+    }
+
+    initTodos() {
+        this.todoList = [];
+        this.loadTodos();
+        this.showTodosInList();
+    }
+
+    getTodoList() {
+        return this.todoList;
     }
 
 
-    function initTodos() {
-        todoList = [];
-        loadTodos();
-        showTodos();
-    }
-
-    function showTodos() {
-        showTodosOnMap();
-        showTodosInList();
-    }
-
-    function showTodosOnMap() {
-        for (let i = 0; i < todoList.length; i++) {
-            addTodoMarker(todoList[i]);
-          }
-    }
-
-    function showTodosInList() {
-
-        todoList.forEach(function (item) {
+    showTodosInList() {
+        this.todoList.forEach(function (item) {
 
             let h3 = document.createElement('h3');
+            // let a = document.createElement('a');
+            h3.id = "item_"+ item.id;
+            // h3.appendChild(a);
             let div = document.createElement('div');
             let p = document.createElement('p');
             div.appendChild(p);
@@ -61,23 +59,15 @@ class Todo {
         
             p.innerHTML += item.description;
             h3.innerHTML += item.title;
+
+
+            $("#item_" + item.id).click(function() {
+                // alert("test");
+                // console.log("mdkjskh");
+                listItemClickCallback(item);
+            });
         });
-
-
-        // document.getElementById('list').appendChild(ul);
-
-        
-        // ul = document.createElement('ul');
-    
-        // document.getElementById('list').appendChild(ul);
-        
-        // todoList.forEach(function (item) {
-        //     let li = document.createElement('li');
-        //     ul.appendChild(li);
-        
-        //     li.innerHTML += item.title;
-        // });
     }
-// }
+}
 
 

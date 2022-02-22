@@ -5,16 +5,21 @@ class Coord {
     }
 };
 
+class TodoMarker {
+    constructor(id, marker) {
+        this.marker = marker;
+        this.id = id;
+    }
+};
 class MapHandler {
 
-    constructor (){
-        this.initMap(new Coord(49.01402868891351, 8.40428765576787));
+    constructor (coord){
+        this.initMap(coord);
     };
-    // var map;
-    // var todoMarkers = [];
 
-     initMap(coord) {
-        this.map = L.map('map').setView([coord.lat, coord.long], 13);
+    initMap(coord) {
+        this.map = L.map('map');
+        this.map.setView([coord.lat, coord.long], 13);
     
         L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
             attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -25,30 +30,43 @@ class MapHandler {
             accessToken: 'pk.eyJ1IjoiZmF2ZW4iLCJhIjoiY2t6eTQ1bTcxMDdpeDJvcDdyMXpsdWY2eSJ9.WOT1zI_rz4ESogcJYieYMQ'
         }).addTo(this.map);
 
-        // this.map.on('click', onMapClick);
+        this.map.on('click', this.onMapClick, this);
 
-        // lastClickedMapPosition = location
+        this.todoMarkers = [];
     }
 
-    // function addTodoMarker(todo) {
-    //     var markerOptions = {
-    //         title: todo.title,
-    //         riseOnHover: 'true',
-    //     };
+    addTodoMarker(todo) {
+        var markerOptions = {
+            title: todo.title,
+            riseOnHover: 'true',
+        };
         
-    //     var marker = L.marker([todo.coord.lat, todo.coord.long], markerOptions);
+        var marker = L.marker([todo.coord.lat, todo.coord.long], markerOptions);
+        marker.bindPopup("<b>"+ todo.title + "</b><br>" + todo.description).openPopup();
+        marker.addTo(this.map);
+
+        this.todoMarkers.push(new TodoMarker(todo.id, marker));
+    }
 
 
-    //     marker.bindPopup("<b>"+ todo.title + "</b><br>" + todo.description).openPopup();
-    //     marker.addTo(map);
 
-    //     todoMarkers.push(todo.id, marker);
-    // }
-
-
-     setMapFocus(coord) {
+    setMapFocus(coord) {
         this.map.setView([coord.lat, coord.long], 13);
     }
+
+    focusID(id) {
+        for (let i = 0; i < this.todoMarkers.length; i++) {
+            if (this.todoMarkers[i].id == id) {
+                var latlng = this.todoMarkers[i].marker.getLatLng();
+                var lat = latlng.lat;
+                var lng = latlng.lng;
+                var coord = new Coord(lat, lng);
+                this.setMapFocus(coord);
+                this.todoMarkers[i].marker.togglePopup();
+            }
+        }
+    }
+
 
     showLocationMarker(coord) {
         var markerOptions = {
@@ -61,49 +79,24 @@ class MapHandler {
         var marker = L.circleMarker([coord.lat, coord.long], markerOptions);
         marker.bindPopup("<b>You are here</b>").openPopup();
         marker.addTo(this.map);
-}
+    }
 
 
+    onMapClick(e) {
+        this.lastClickedMapPosition = new Coord(e.lat, e.long);
+        var domelem = document.createElement('button');
+        domelem.innerHTML = "Add ToDo Item";
+        domelem.onclick = function() {
+            popupCallback();
+        };
 
-// var lastClickedMapPosition = null;
-
-// function onMapClick(e) {
-//     lastClickedMapPosition = new Coord(e.lat, e.long);
-//     L.popup()
-//         .setLatLng(e.latlng)
-//         .setContent("New ToDo Item here")
-//         .openOn(map);
-// }
-
-
-
-
-};
-
-
-// var marker = L.marker([51.5, -0.09]).addTo(map);
-// marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
-
-// var popup = L.popup()
-//     .setLatLng([51.513, -0.09])
-//     .setContent("I am a standalone popup.")
-//     .openOn(map);
-
-// var popup = L.popup();
-
-// function onMapClick(e) {
-//     popup
-//         .setLatLng(e.latlng)
-//         .setContent("You clicked the map at " + e.latlng.toString())
-//         .openOn(map);
-// }
-
-// map.on('click', onMapClick);
-
-class TodoMarker {
-    constructor(id, marker) {
-        this.marker = marker;
-        this.id = id;
+        L.popup()
+            .setLatLng(e.latlng)
+            .setContent(domelem)
+            .openOn(this.map);
     }
 };
+
+
+
 
