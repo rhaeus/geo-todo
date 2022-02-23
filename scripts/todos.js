@@ -13,6 +13,9 @@ var IDGenerator = (function() {
     return { // public interface
       getID: function () {
         return id++;
+      },
+      init: function(start) {
+        id = start;
       }
     };
   })();
@@ -65,6 +68,7 @@ class TodoHandler {
     }
 
     addItemToDocument(item) {
+        console.log(item.id);
         let h3 = document.createElement('h3');
         // let a = document.createElement('a');
         h3.id = "item_h3_"+ item.id;
@@ -89,7 +93,6 @@ class TodoHandler {
         h3.innerHTML += item.title;
 
         $("#item_h3_" + item.id).click(function() {
-
             listItemClickCallback(item);
         });
     }
@@ -99,7 +102,6 @@ class TodoHandler {
         for (let i = 0; i < this.todoList.length; i++) {
             this.addItemToDocument(this.todoList[i]);
         }
-
     }
 
     storeData() {
@@ -115,6 +117,13 @@ class TodoHandler {
 
     loadData() {
         this.todoList = JSON.parse(localStorage.getItem("todos"));
+        var startID = 0;
+        for (let i = 0; i < this.todoList.length; ++i) {
+            if (this.todoList[i].id > startID) {
+                startID = this.todoList[i].id;
+            }
+        }
+        IDGenerator.init(startID+1);
         console.log("data restored");
     }
 }

@@ -64,6 +64,7 @@ function storeData(title, description, coord) {
 }
 
 function listItemClickCallback(item) {
+    // console.log(item);
     mapHandler.focusID(item.id);
 }
 
