@@ -99,3 +99,7 @@ function mapMarkerClick(id) {
         }
     }
 }
+
+function showPositionButtonCallback() {
+    locationHandler.getLocation(getPositionSuccess);
+}
