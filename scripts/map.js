@@ -43,9 +43,39 @@ class MapHandler {
         };
         
         var marker = L.marker([todo.coord.lat, todo.coord.long], markerOptions);
-        marker.bindPopup("<b>"+ todo.title + "</b><br>" + todo.description).openPopup();
+
+        marker.on('click', ()=>{
+            mapMarkerClick(todo.id);
+        });
+
+        var content = document.createElement('div');
+        var title = document.createElement('div');
+        title.innerHTML = "<b>"+ todo.title + "</b>";
+        var description = document.createElement('div');
+        description.innerHTML = todo.description;
+
+
+        var deleteToDoButton = document.createElement('button');
+        deleteToDoButton.innerHTML = "Delete";
+        deleteToDoButton.onclick = function() {
+            deleteTodoItemButtonCallback(todo)
+        };
+
+        content.appendChild(title);
+        content.appendChild(description);
+        content.appendChild(deleteToDoButton);
+
+        // L.popup()
+        //     .setLatLng(e.latlng)
+        //     .setContent(addToDoButton)
+        //     .openOn(this.map);
+
+        // marker.bindPopup("<b>"+ todo.title + "</b><br>" + todo.description).openPopup();
+        marker.bindPopup(content);//.openPopup();
         marker.addTo(this.map);
-        marker.togglePopup();
+        if (!marker.isPopupOpen()) {
+            marker.openPopup();
+        }
 
         this.todoMarkers.push(new TodoMarker(todo.id, marker));
     }
@@ -73,7 +103,9 @@ class MapHandler {
                 var lng = latlng.lng;
                 var coord = new Coord(lat, lng);
                 this.setMapFocus(coord);
-                this.todoMarkers[i].marker.togglePopup();
+                if (!this.todoMarkers[i].marker.isPopupOpen()) {
+                    this.todoMarkers[i].marker.openPopup();
+                }
                 break;
             }
         }

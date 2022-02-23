@@ -67,16 +67,34 @@ function deleteTodoItemButtonCallback(item) {
     // var activeIndex = 1;
     // console.log(activeIndex);
     // var todos = todoHandler.getTodoList();
-    // if(todos.length == 0) {
+    // if(todoHandler == 0) {
     //     return;
     // }
     // var activeIndex = jQuery("#list").accordion('option', 'active');
     // var toDelete = todos[activeIndex];
     mapHandler.deleteID(item.id);
     todoHandler.deleteID(item.id);
+
+    if (todoHandler.getTodoCount() > 0) {
+        var firstId = todoHandler.getTodoList()[0].id;
+        // console.log(firstId);
+        mapHandler.focusID(firstId);
+        $("#list").accordion("option", "active", 0);
+    }
     $( "#list" ).accordion("refresh");
 
 }
+
+function mapMarkerClick(id) {
+    var todos = todoHandler.getTodoList();
+    for (let i = 0; i < todos.length; ++i) {
+        if (todos[i].id == id) {
+            $("#list").accordion("option", "active", i);
+            break;
+        }
+    }
+}
+
 
 
 
