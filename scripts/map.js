@@ -27,11 +27,19 @@ class MapHandler {
             id: 'mapbox/streets-v11',
             tileSize: 512,
             zoomOffset: -1,
+            className: 'map-tiles',
             accessToken: 'pk.eyJ1IjoiZmF2ZW4iLCJhIjoiY2t6eTQ1bTcxMDdpeDJvcDdyMXpsdWY2eSJ9.WOT1zI_rz4ESogcJYieYMQ'
         }).addTo(this.map);
 
         this.map.on('click', this.onMapClick, this);
 
+        this.todoMarkers = [];
+    }
+
+    clearMarkers() {
+        for (let i = 0; i < this.todoMarkers.length; i++) {
+            this.map.removeLayer(this.todoMarkers[i].marker);
+        }
         this.todoMarkers = [];
     }
 
@@ -56,6 +64,7 @@ class MapHandler {
 
 
         var deleteToDoButton = document.createElement('button');
+        deleteToDoButton.classList.add("deleteButton");
         deleteToDoButton.innerHTML = "Delete";
         deleteToDoButton.onclick = function() {
             deleteTodoItemButtonCallback(todo)

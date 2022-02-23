@@ -1,0 +1,49 @@
+.leaflet-popup-content-wrapper, .leaflet-popup.tip {
+    background-color: #635f5f;
+    color: #e7e2e2;
+  }
+
+.map-tiles {
+    filter:var(--map-tiles-filter, none);
+}
+
+body {
+  color: #e7e2e2;
+  background: #353535;
+  font: 100% system-ui;
+}
+
+button {
+  background-color:#8b8b8b ;
+  color: #000000;
+  border-color: #ffffff;
+  border: 1pt;
+  padding: 5pt;
+  border-radius: 3pt;
+}
+
+button:hover {
+  background-color: #777676;
+  color: #000000;
+  border-color: #ffffff;
+}
+
+.deleteButton {
+  background-color: #e95757;
+  color: white;
+
+} 
+.deleteButton:hover {
+  background-color: #c74949;
+  color: white;
+}
+
+input:invalid {
+  background-color: #FFAAAA;
+}
+
+textarea:invalid {
+  background-color: #FFAAAA;
+}
+
+

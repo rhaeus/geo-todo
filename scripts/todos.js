@@ -76,6 +76,7 @@ class TodoHandler {
 
         let btn = document.createElement('button');
         btn.innerText = "Delete";
+        btn.classList.add("deleteButton");
         btn.addEventListener("click", ()=>{
             deleteTodoItemButtonCallback(item);
         });

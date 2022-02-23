@@ -8,10 +8,12 @@ window.onload = function() {
     // initMap(new Coord(49.01402868891351, 8.40428765576787));
     locationHandler.getLocation(getPositionSuccess);
     var todos = todoHandler.getTodoList();
+    mapHandler.clearMarkers();
     for (let i = 0; i < todos.length; i++) {
         mapHandler.addTodoMarker(todos[i]);
     }
     activateFirstTodo();
+    startLightSensor();
 };
 
 function getPositionSuccess(position) {
@@ -26,6 +28,7 @@ function addTodoItemCallback(coord) {
 
     $('<form id="addItemForm"><div><b>Title</b></div><input type="text" size="39" required="required" value="New Title"style="z-index:10000" name="title"><br><br><div><b>Description</b></div><textarea name="description" cols="40" rows="5" required="required">New Description</textarea><br></form>')
     // .data('coord', coord)
+    .attr('title', 'New ToDo Item')
     .dialog({
         modal: true,
         width: 430,
@@ -77,6 +80,7 @@ function deleteTodoItemButtonCallback(item) {
     todoHandler.deleteID(item.id);
 
     activateFirstTodo();
+    $("#list").accordion("option", "active", 0);
     $( "#list" ).accordion("refresh");
 
 }
@@ -85,7 +89,6 @@ function activateFirstTodo() {
     if (todoHandler.getTodoCount() > 0) {
         var firstId = todoHandler.getTodoList()[0].id;
         // console.log(firstId);
-        $("#list").accordion("option", "active", 0);
         mapHandler.focusID(firstId);
     }
 }
@@ -102,4 +105,24 @@ function mapMarkerClick(id) {
 
 function showPositionButtonCallback() {
     locationHandler.getLocation(getPositionSuccess);
+}
+
+
+
+
+function toggleTheme() {
+    const theme = document.querySelector("#theme-link");
+    const jqueryTheme = document.querySelector("#jquery-theme-link");
+    // If the current URL contains "ligh-theme.css"
+    if (theme.getAttribute("href") == "styles/light-theme.css") {
+        // ... then switch it to "dark-theme.css"
+        jqueryTheme.href = "styles/jquery-ui-dark.css";
+        theme.href = "styles/dark-theme.css";
+    // Otherwise...
+    } else {
+        // ... switch it to "light-theme.css"
+        jqueryTheme.href = "//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css";
+        theme.href = "styles/light-theme.css";
+
+    }
 }

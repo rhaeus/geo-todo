@@ -1,24 +1,33 @@
 #map { height: 500px; }
 .ui-dialog { z-index: 1000 !important ;}
 
+:root {
+    /* https://css-tricks.com/a-complete-guide-to-dark-mode-on-the-web/ */
+    /* map dark mode  */
+    --map-tiles-filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3) brightness(0.7);
+    color-scheme: light dark; /* both supported */
+}
+
+/* .map-tiles {
+    filter:var(--map-tiles-filter, none);
+} */
+
 .grid-container {
     display: grid;
     grid-template-columns: 2fr 1fr;
     grid-gap: 20px;
 }
 
-input:invalid {
-    background-color: #FFAAAA;
+
+
+
+
+
+@media (prefers-color-scheme: dark) {
+    /* Dark theme styles go here */
 }
 
-input:valid {
-    background-color: #FFFFFF;
+@media (prefers-color-scheme: light) {
+/* Light theme styles go here */
 }
 
-textarea:invalid {
-    background-color: #FFAAAA;
-}
-
-textarea:valid {
-    background-color: #FFFFFF;
-}

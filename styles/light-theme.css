@@ -1,0 +1,45 @@
+.leaflet-popup-content-wrapper, .leaflet-popup.tip {
+    background-color: #FFF
+  }
+
+body {
+  color: black;
+  background: white;
+  font: 100% system-ui;
+}
+
+
+button {
+  background-color:#007fff ;
+  color: white;
+  border-color: #003eff;
+  border: 1pt;
+  padding: 5pt;
+  border-radius: 5pt;
+}
+
+button:hover {
+  background-color:#003eff ;
+  color: white;
+  border-color: #003eff;
+}
+
+.deleteButton {
+  background-color: #e95757;
+  color: white;
+
+} 
+.deleteButton:hover {
+  background-color: #c74949;
+  color: white;
+}
+
+input:invalid {
+  background-color: #FFAAAA;
+}
+
+textarea:invalid {
+  background-color: #FFAAAA;
+}
+
+
