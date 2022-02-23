@@ -56,12 +56,27 @@ function storeData(title, description, coord) {
     var todo = todoHandler.addTodo(title, description, coord);
     mapHandler.addTodoMarker(todo);
     $( "#list" ).accordion("refresh");
+    $("#list").accordion("option", "active", todoHandler.getTodoCount()-1);
 }
 
 function listItemClickCallback(item) {
     mapHandler.focusID(item.id);
 }
 
+function deleteTodoItemButtonCallback(item) {
+    // var activeIndex = 1;
+    // console.log(activeIndex);
+    // var todos = todoHandler.getTodoList();
+    // if(todos.length == 0) {
+    //     return;
+    // }
+    // var activeIndex = jQuery("#list").accordion('option', 'active');
+    // var toDelete = todos[activeIndex];
+    mapHandler.deleteID(item.id);
+    todoHandler.deleteID(item.id);
+    $( "#list" ).accordion("refresh");
+
+}
 
 
 

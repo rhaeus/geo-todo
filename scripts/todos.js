@@ -45,14 +45,44 @@ class TodoHandler {
         return this.todoList;
     }
 
+    getTodoCount() {
+        return this.todoList.length;
+    }
+
+    deleteID(id) {
+        for (let i = 0; i < this.todoList.length; i++) {
+            if (this.todoList[i].id == id) {
+                this.removeItemFromDocument(this.todoList[i]);
+                this.todoList.splice(i,1);
+                break;
+            }
+        }
+    }
+
+    removeItemFromDocument(item) {
+        var h3 = document.getElementById("item_h3_"+ item.id);
+        var div = document.getElementById("item_div_"+ item.id);
+        var list = document.getElementById('list');
+        list.removeChild(h3);
+        list.removeChild(div);
+    }
+
     addItemToDocument(item) {
         let h3 = document.createElement('h3');
         // let a = document.createElement('a');
-        h3.id = "item_"+ item.id;
+        h3.id = "item_h3_"+ item.id;
         // h3.appendChild(a);
         let div = document.createElement('div');
+        div.id = "item_div_"+ item.id;
         let p = document.createElement('p');
         div.appendChild(p);
+
+        let btn = document.createElement('button');
+        btn.innerText = "Delete";
+        btn.addEventListener("click", ()=>{
+            deleteTodoItemButtonCallback(item);
+        });
+        div.appendChild(btn);
 
         document.getElementById('list').appendChild(h3);
         document.getElementById('list').appendChild(div);
@@ -60,7 +90,7 @@ class TodoHandler {
         p.innerHTML += item.description;
         h3.innerHTML += item.title;
 
-        $("#item_" + item.id).click(function() {
+        $("#item_h3_" + item.id).click(function() {
 
             listItemClickCallback(item);
         });

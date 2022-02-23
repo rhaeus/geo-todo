@@ -50,6 +50,15 @@ class MapHandler {
         this.todoMarkers.push(new TodoMarker(todo.id, marker));
     }
 
+    deleteID(id) {
+        for (let i = 0; i < this.todoMarkers.length; i++) {
+            if (this.todoMarkers[i].id == id) {
+                this.map.removeLayer(this.todoMarkers[i].marker);
+                break;
+            }
+        }
+    }
+
 
 
     setMapFocus(coord) {
@@ -65,6 +74,7 @@ class MapHandler {
                 var coord = new Coord(lat, lng);
                 this.setMapFocus(coord);
                 this.todoMarkers[i].marker.togglePopup();
+                break;
             }
         }
     }
