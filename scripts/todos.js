@@ -29,7 +29,10 @@ class TodoHandler {
     }
 
     addTodo(title, description, coord) {
-        this.todoList.push(new Todo(title, description, coord));
+        var item = new Todo(IDGenerator.getID(),title, description, coord);
+        this.todoList.push(item);
+        this.addItemToDocument(item);
+        return item;
     }
 
     initTodos() {
@@ -42,31 +45,33 @@ class TodoHandler {
         return this.todoList;
     }
 
+    addItemToDocument(item) {
+        let h3 = document.createElement('h3');
+        // let a = document.createElement('a');
+        h3.id = "item_"+ item.id;
+        // h3.appendChild(a);
+        let div = document.createElement('div');
+        let p = document.createElement('p');
+        div.appendChild(p);
+
+        document.getElementById('list').appendChild(h3);
+        document.getElementById('list').appendChild(div);
+    
+        p.innerHTML += item.description;
+        h3.innerHTML += item.title;
+
+        $("#item_" + item.id).click(function() {
+
+            listItemClickCallback(item);
+        });
+    }
+
 
     showTodosInList() {
-        this.todoList.forEach(function (item) {
+        for (let i = 0; i < this.todoList.length; i++) {
+            this.addItemToDocument(this.todoList[i]);
+        }
 
-            let h3 = document.createElement('h3');
-            // let a = document.createElement('a');
-            h3.id = "item_"+ item.id;
-            // h3.appendChild(a);
-            let div = document.createElement('div');
-            let p = document.createElement('p');
-            div.appendChild(p);
-
-            document.getElementById('list').appendChild(h3);
-            document.getElementById('list').appendChild(div);
-        
-            p.innerHTML += item.description;
-            h3.innerHTML += item.title;
-
-
-            $("#item_" + item.id).click(function() {
-                // alert("test");
-                // console.log("mdkjskh");
-                listItemClickCallback(item);
-            });
-        });
     }
 }
 

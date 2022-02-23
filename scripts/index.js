@@ -11,7 +11,6 @@ window.onload = function() {
     for (let i = 0; i < todos.length; i++) {
         mapHandler.addTodoMarker(todos[i]);
     }
-
 };
 
 function getPositionSuccess(position) {
@@ -21,8 +20,42 @@ function getPositionSuccess(position) {
 
 }
 
-function popupCallback() {
-    console.log("clickydiclick");
+function addTodoItemCallback(coord) {
+    // console.log(coord);
+
+    $('<form id="addItemForm"><div><b>Title</b></div><input type="text" size="39" required="required" value="New Title"style="z-index:10000" name="title"><br><br><div><b>Description</b></div><textarea name="description" cols="40" rows="5" required="required">New Description</textarea><br></form>')
+    // .data('coord', coord)
+    .dialog({
+        modal: true,
+        width: 430,
+        height: 310,
+        buttons: {
+          'OK': function () {
+            var title = $('input[name="title"]').val();
+            var description = $('textarea[name="description"]').val();
+            // var coord = $("#addItemForm").data('coord');
+            // console.log(coord);
+
+            if(title != "" && description != "") {
+                storeData(title, description, coord);
+                $(this).dialog('close');
+            }
+          },
+          'Cancel': function () {
+            $(this).dialog('close');
+          }
+        }
+      });
+
+
+
+}
+
+function storeData(title, description, coord) {
+    // console.log(coord);
+    var todo = todoHandler.addTodo(title, description, coord);
+    mapHandler.addTodoMarker(todo);
+    $( "#list" ).accordion("refresh");
 }
 
 function listItemClickCallback(item) {

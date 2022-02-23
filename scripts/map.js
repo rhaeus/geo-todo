@@ -18,8 +18,8 @@ class MapHandler {
     };
 
     initMap(coord) {
-        this.map = L.map('map');
-        this.map.setView([coord.lat, coord.long], 13);
+        this.map = L.map('map').setView([coord.lat, coord.long], 13);
+        // this.map.setView([coord.lat, coord.long], 13);
     
         L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
             attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -36,6 +36,7 @@ class MapHandler {
     }
 
     addTodoMarker(todo) {
+        this.map.closePopup();
         var markerOptions = {
             title: todo.title,
             riseOnHover: 'true',
@@ -44,6 +45,7 @@ class MapHandler {
         var marker = L.marker([todo.coord.lat, todo.coord.long], markerOptions);
         marker.bindPopup("<b>"+ todo.title + "</b><br>" + todo.description).openPopup();
         marker.addTo(this.map);
+        marker.togglePopup();
 
         this.todoMarkers.push(new TodoMarker(todo.id, marker));
     }
@@ -83,16 +85,17 @@ class MapHandler {
 
 
     onMapClick(e) {
-        this.lastClickedMapPosition = new Coord(e.lat, e.long);
-        var domelem = document.createElement('button');
-        domelem.innerHTML = "Add ToDo Item";
-        domelem.onclick = function() {
-            popupCallback();
+        var coord = new Coord(e.latlng.lat, e.latlng.lng);
+
+        var addToDoButton = document.createElement('button');
+        addToDoButton.innerHTML = "Add ToDo Item";
+        addToDoButton.onclick = function() {
+            addTodoItemCallback(coord);
         };
 
         L.popup()
             .setLatLng(e.latlng)
-            .setContent(domelem)
+            .setContent(addToDoButton)
             .openOn(this.map);
     }
 };

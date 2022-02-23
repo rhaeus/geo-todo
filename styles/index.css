@@ -1,7 +1,24 @@
 #map { height: 500px; }
+.ui-dialog { z-index: 1000 !important ;}
 
 .grid-container {
     display: grid;
     grid-template-columns: 2fr 1fr;
     grid-gap: 20px;
+}
+
+input:invalid {
+    background-color: #FFAAAA;
+}
+
+input:valid {
+    background-color: #FFFFFF;
+}
+
+textarea:invalid {
+    background-color: #FFAAAA;
+}
+
+textarea:valid {
+    background-color: #FFFFFF;
 }
