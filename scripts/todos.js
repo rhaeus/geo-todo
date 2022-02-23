@@ -22,22 +22,18 @@ class TodoHandler {
         this.initTodos();
     }
 
-    loadTodos() {
-        this.todoList.push(new Todo(IDGenerator.getID(), "OneTitle", "OneDescription", new Coord(49.2320461231584, 9.164004935327187)));
-        this.todoList.push(new Todo(IDGenerator.getID(), "TwoTitle", "TwoDescription", new Coord(49.23899815777546, 9.09671165040421)));
-        this.todoList.push(new Todo(IDGenerator.getID(), "ThreeTitle", "ThreeDescription", new Coord(49.25176067682491, 9.039397436437302)));
-    }
 
     addTodo(title, description, coord) {
         var item = new Todo(IDGenerator.getID(),title, description, coord);
         this.todoList.push(item);
         this.addItemToDocument(item);
+        this.storeData();
         return item;
     }
 
     initTodos() {
         this.todoList = [];
-        this.loadTodos();
+        this.loadData();
         this.showTodosInList();
     }
 
@@ -54,6 +50,7 @@ class TodoHandler {
             if (this.todoList[i].id == id) {
                 this.removeItemFromDocument(this.todoList[i]);
                 this.todoList.splice(i,1);
+                this.storeData();
                 break;
             }
         }
@@ -102,6 +99,22 @@ class TodoHandler {
             this.addItemToDocument(this.todoList[i]);
         }
 
+    }
+
+    storeData() {
+        if (typeof(Storage) !== "undefined") {
+        // Code for localStorage/sessionStorage.
+        localStorage.setItem("todos", JSON.stringify(this.todoList));
+        console.log("data stored");
+
+        } else {
+        console.log("Sorry! No Web Storage support..");
+        }
+    }
+
+    loadData() {
+        this.todoList = JSON.parse(localStorage.getItem("todos"));
+        console.log("data restored");
     }
 }
 

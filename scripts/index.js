@@ -11,6 +11,7 @@ window.onload = function() {
     for (let i = 0; i < todos.length; i++) {
         mapHandler.addTodoMarker(todos[i]);
     }
+    activateFirstTodo();
 };
 
 function getPositionSuccess(position) {
@@ -75,14 +76,18 @@ function deleteTodoItemButtonCallback(item) {
     mapHandler.deleteID(item.id);
     todoHandler.deleteID(item.id);
 
+    activateFirstTodo();
+    $( "#list" ).accordion("refresh");
+
+}
+
+function activateFirstTodo() {
     if (todoHandler.getTodoCount() > 0) {
         var firstId = todoHandler.getTodoList()[0].id;
         // console.log(firstId);
-        mapHandler.focusID(firstId);
         $("#list").accordion("option", "active", 0);
+        mapHandler.focusID(firstId);
     }
-    $( "#list" ).accordion("refresh");
-
 }
 
 function mapMarkerClick(id) {
@@ -94,59 +99,3 @@ function mapMarkerClick(id) {
         }
     }
 }
-
-
-
-
-// function load(argument) {
-// 	// body...
-//         // alert("Hello");
-
-// }
-
-// window.onload = load;
-
-
-
-// class Main {
-//     constructor() {
-//         this.locationHandler = new LocationHandler();
-//         this.mapHandler = new MapHandler();
-//         this.todoHandler = new TodoHandler();
-//         // alert("Hello");
-//         this.locationHandler.getLocation(this.showLocation);
-
-
-
-//         // var lat = this.locationHandler.location;
-//         // alert(lat);
-//         // var long = this.locationHandler.location[1];
-
-//         // this.mapHandler.setMapFocus(this.locationHandler.location);
-//         // this.mapHandler.showLocationMarker(this.locationHandler.location);
-//         // this.mapHandler.setMapFocus([49.2320461231584, 9.164004935327187]);
-//         // this.mapHandler.showLocationMarker([49.2320461231584, 9.164004935327187]);
-//     }
-
-//     showLocation(position) {
-//         var lat = position.coords.latitude; 
-//         var long = position.coords.longitude;
-//         // this.mapHandler.setMapFocus([lat, long]);
-//         // this.mapHandler.showLocationMarker([lat, long]);
-//     }
-// }
-
-//   function init() {
-//     //    alert("Hello");
-//     // mapHandler.setMapFocus(49.2320461231584, 9.164004935327187);
-//     // mapHandler.showLocationMarker(49.2320461231584, 9.164004935327187);
-//     //  var main = new Main();
-
-//     //  locationHandler.getLocation();
-//      // location = locationHandler.location;
-//     //  alert("Hello");
- 
-//      // alert(location.lat);
-//      // mapHandler.setMapFocus(location);
-//      // mapHandler.showLocationMarker(location);
-//   }
