@@ -1,17 +1,17 @@
-function startLightSensor() {
-    if ( 'AmbientLightSensor' in window ) {
-        const sensor = new AmbientLightSensor();
-        sensor.addEventListener('reading', event => {
-          console.log('Current light level:', sensor.illuminance);
-        });
-        sensor.addEventListener('error', event => {
-          console.log(event.error.name, event.error.message);
-        });
-        sensor.start();
-      } else {
-          console.log("no ambient light sensor");
-      }
-}
+// function startLightSensor() {
+//     if ( 'AmbientLightSensor' in window ) {
+//         const sensor = new AmbientLightSensor();
+//         sensor.addEventListener('reading', event => {
+//           console.log('Current light level:', sensor.illuminance);
+//         });
+//         sensor.addEventListener('error', event => {
+//           console.log(event.error.name, event.error.message);
+//         });
+//         sensor.start();
+//       } else {
+//           console.log("no ambient light sensor");
+//       }
+// }
 
 // https://www.w3.org/TR/ambient-light/
 // need to enable extended sensor access
@@ -33,7 +33,21 @@ function ambientLight() {
         const C = 250;
 
         let EV = Math.round(Math.log2((als.illuminance * ISO) / C));
+        console.log(`Illuminance value is: ${als.illuminance}`);
         console.log(`Exposure Value (EV) is: ${EV}`);
+        // if (EV >= 6) {
+        //   setLightTheme();
+        // }
+        // if (EV <= 4) {
+        //   setDarkTheme();
+        // }
+
+        // https://en.wikipedia.org/wiki/Lux#Illuminance
+        if (als.illuminance < 20) {
+          setDarkTheme();
+        } else if (als.illuminance > 50) {
+          setLightTheme();
+        }
     });
 
     als.start();

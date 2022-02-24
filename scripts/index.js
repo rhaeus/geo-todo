@@ -13,7 +13,6 @@ window.onload = function() {
         mapHandler.addTodoMarker(todos[i]);
     }
     activateFirstTodo();
-    // startLightSensor();
     ambientLight();
 };
 
@@ -51,9 +50,6 @@ function addTodoItemCallback(coord) {
           }
         }
       });
-
-
-
 }
 
 function storeData(title, description, coord) {
@@ -110,21 +106,27 @@ function showPositionButtonCallback() {
 }
 
 
+function setDarkTheme()  {
+    const theme = document.querySelector("#theme-link");
+    const jqueryTheme = document.querySelector("#jquery-theme-link");
+    jqueryTheme.href = "styles/jquery-ui-dark.css";
+    theme.href = "styles/dark-theme.css";
+}
 
+function setLightTheme(){
+    const theme = document.querySelector("#theme-link");
+    const jqueryTheme = document.querySelector("#jquery-theme-link");
+    jqueryTheme.href = "//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css";
+    theme.href = "styles/light-theme.css";
+}
 
 function toggleTheme() {
     const theme = document.querySelector("#theme-link");
     const jqueryTheme = document.querySelector("#jquery-theme-link");
     // If the current URL contains "ligh-theme.css"
     if (theme.getAttribute("href") == "styles/light-theme.css") {
-        // ... then switch it to "dark-theme.css"
-        jqueryTheme.href = "styles/jquery-ui-dark.css";
-        theme.href = "styles/dark-theme.css";
-    // Otherwise...
+        setDarkTheme();
     } else {
-        // ... switch it to "light-theme.css"
-        jqueryTheme.href = "//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css";
-        theme.href = "styles/light-theme.css";
-
+        setLightTheme();
     }
 }
