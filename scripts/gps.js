@@ -9,7 +9,7 @@ class LocationHandler {
 
 
      getPositionFail(error) {
-        showError(error);
+        this.showError(error);
     }
     
     

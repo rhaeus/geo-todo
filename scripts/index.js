@@ -1,6 +1,6 @@
 
-var mapHandler = new MapHandler(new Coord(49.01402868891351, 8.40428765576787));
 var locationHandler = new LocationHandler();
+var mapHandler = new MapHandler(new Coord(49.01402868891351, 8.40428765576787));
 var todoHandler = new TodoHandler();
 
 

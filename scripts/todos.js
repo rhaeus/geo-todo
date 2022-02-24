@@ -32,6 +32,9 @@ class TodoHandler {
         this.todoList.push(item);
         this.addItemToDocument(item);
         this.storeData();
+        if (this.todoList.length != 0) {
+            this.removeHint();
+        }
         return item;
     }
 
@@ -58,7 +61,26 @@ class TodoHandler {
                 break;
             }
         }
+        if (this.todoList.length == 0) {
+            this.addHint();
+        }
     }
+
+    addHint() {
+        var parent = document.getElementById("list-section");
+        var child = document.createElement('p');
+        child.id = "item_add_hint";
+        child.innerText = "Click location on map to add a new TODO item";
+        parent.appendChild(child);
+    }
+
+    removeHint() {
+        var parent = document.getElementById("list-section");
+        var child = document.getElementById("item_add_hint");
+        parent.removeChild(child);
+    }
+
+    
 
     removeItemFromDocument(item) {
         var h3 = document.getElementById("item_h3_"+ item.id);
@@ -114,8 +136,9 @@ class TodoHandler {
 
     loadData() {
         this.todoList = JSON.parse(localStorage.getItem("todos"));
-        if (this.todoList == null) { //no data stored
+        if (this.todoList == null || this.todoList.length == 0) { //no data stored
             this.todoList = [];
+            this.addHint();
             return;
         }
 
