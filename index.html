@@ -54,8 +54,18 @@
 	</head>
 	<body>
 		<main>
+			<!-- <div class="top_navbar">
+				<div class="hamburger">
+					<a href="#">
+						<i class="material-icons">gps_fixed</i>
+					</a>
+				</div>
+			</div> -->
+				 
+			<!-- <button class="collapseBtn">collapse</button> -->
+			<!-- <button id="btn_toggleTheme" onClick="toggleTheme()">Toggle Theme</button> -->
 			<div class="container">
-				<div class="list-panel">
+				<div id="list-panel" class="list-panel sidebar">
 					<div class="list-section">
 						<h3>TODOs</h3>
 						<div id="list" class="list"></div>
@@ -64,29 +74,23 @@
 					<div class="theme-section">
 						<p>Theme:</p>
 
-						<!-- <div> -->
 						<input type="radio" id="radio-light-theme" name="radio-theme" onchange="setTheme('Light')" value="Light" checked>
 						<label for="radio-light-theme">Light</label>
-						<!-- </div> -->
 
-						<!-- <div> -->
 						<input type="radio" id="radio-dark-theme" name="radio-theme" onchange="setTheme('Dark')" value="Dark">
 						<label for="radio-dark-theme">Dark</label>
-						<!-- </div> -->
 
-						<!-- <div> -->
 						<input type="radio" id="radio-auto-theme" name="radio-theme" onchange="setAutoTheme('Auto')" value="Auto">
 						<label for="radio-auto-theme">Auto</label>
-						<!-- </div> -->
-
-						<!-- <button id="btn_toggleTheme" onClick="toggleTheme()">Toggle Theme</button> -->
 						</div>
-					
 				</div>	
 
 				
 	
-				<div class="map-panel">
+				<div id="map-panel" class="map-panel">
+					<button class="collapseBtn  material-icons" onclick="toggleListSection()">list</button>
+					<!-- <div class="top_navbar">
+					</div> -->
 					<div id="map"> </div>
 				</div>
 			</div>

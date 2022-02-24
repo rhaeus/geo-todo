@@ -2,27 +2,37 @@ html, body {
     height: 100%;
  }
 .container {
-    /* height: 100%; */
+    height: 100vh;
+}
+/* .container {
     height: 100vh;
     display: grid;
     grid-template-columns: 1fr 3fr;
     grid-gap: 20px;
-}
+} */
 .map-panel {
     height: 100%;
 }
 /* https://stackoverflow.com/questions/16543446/how-to-make-leaflet-map-height-variable */
 #map { 
+
     height: calc(100% - 20px); 
     /* height:100%; */
 }
 
 .list-panel {
+    /* padding-top: 20px; */
     height: 100%;
     display: flex;
     flex-direction: column;
-    overflow-y:auto
+    overflow-y:auto;
+    position: fixed;
+    /* top: 0;
+    left: 0; */
+    /* transition: 0.5s; */
+    width: 0;
 }
+
 
 .list-section {
     overflow:auto;
@@ -32,6 +42,25 @@ html, body {
     margin-top: auto;
     margin-bottom: 25px;
 }
+
+/* #main {
+   transition: margin-left .5s;
+} */
+
+.collapseBtn {
+    position: absolute;
+    z-index: 999 !important ;
+    margin: 10px;
+    /* background-color: white;
+    color: black;
+    border-color: black;
+    border-width: 10px; */
+
+    /* visibility: visible; */
+}
+
+
+
 /* #map { height: calc(100% - 20px); width: 100%; position: absolute !important; } */
 /* #map{
     position: absolute;
@@ -58,7 +87,9 @@ html, body, #map {
     width: 100%;
 } */
 
-.ui-dialog { z-index: 1000 !important ;}
+.ui-dialog { 
+    z-index: 1000 !important ;
+}
 
 :root {
     /* https://css-tricks.com/a-complete-guide-to-dark-mode-on-the-web/ */
@@ -67,9 +98,6 @@ html, body, #map {
     color-scheme: light dark; /* both supported */
 }
 
-/* .map-tiles {
-    filter:var(--map-tiles-filter, none);
-} */
 
 
 .leaflet-bar button {
@@ -78,11 +106,6 @@ html, body, #map {
     font-size:35px
 }
 
-/*  */
-
-
-
-
 
 @media (prefers-color-scheme: dark) {
     /* Dark theme styles go here */
@@ -90,5 +113,31 @@ html, body, #map {
 
 @media (prefers-color-scheme: light) {
 /* Light theme styles go here */
+}
+
+/* big screen */
+@media (min-width: 60rem){
+    /* body {
+        background-color: rgb(38, 141, 189) !important;
+      } */
+    
+    /* .container {
+        height: 100vh;
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        grid-gap: 20px;
+    } */
+}
+
+/* small screen */
+/* @media (min-width: 40rem) and (max-width: 60rem){ */
+@media (max-width: 60rem){
+    /* body {
+        background-color: rgb(189, 38, 181) !important;
+    } */
+
+    /* .container {
+        height: 100vh;
+    } */
 }
 

@@ -153,12 +153,26 @@ function toggleTheme() {
 
 /* Set the width of the sidebar to 250px and the left margin of the page content to 250px */
 function openListSection() {
-    document.getElementById("mySidebar").style.width = "250px";
-    document.getElementById("main").style.marginLeft = "250px";
+    document.getElementById("list-panel").style.width = "20rem";
+    document.getElementById("map-panel").style.marginLeft = "21rem";
   }
   
 /* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
 function closeListSection() {
-    document.getElementById("mySidebar").style.width = "0";
-    document.getElementById("main").style.marginLeft = "0";
+    document.getElementById("list-panel").style.width = "0";
+    document.getElementById("map-panel").style.marginLeft = "0";
 }
+
+function toggleListSection() {
+    console.log(document.getElementById("list-panel").style.width);
+    if (document.getElementById("list-panel").style.width == "0px") {
+        openListSection();
+    } else {
+        closeListSection();
+    }
+}
+
+// var hamburger = document.querySelector(".hamburger");
+// hamburger.addEventListener("click", function(){
+//     document.querySelector("body").classList.toggle("active");
+// })
