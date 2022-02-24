@@ -6,6 +6,8 @@ var todoHandler = new TodoHandler();
 
 window.onload = function() {
     locationHandler.getLocation(getPositionSuccess);
+    locationHandler.startLocationObserver(getPositionSuccess);
+
     var todos = todoHandler.getTodoList();
     mapHandler.clearMarkers();
     for (let i = 0; i < todos.length; i++) {
@@ -23,16 +25,25 @@ function getPositionSuccess(position) {
 }
 
 function addTodoItemCallback(coord) {
-    $('<form id="addItemForm"><div><b>Title</b></div><input type="text" size="39" required="required" value="New Title"style="z-index:10000" name="title"><br><br><div><b>Description</b></div><textarea name="description" cols="40" rows="5" required="required">New Description</textarea><br></form>')
-    .attr('title', 'New ToDo Item')
+  var id = IDGenerator.getID();
+  var titleID = "title" + id;
+  var descriptionID = "description" + id;
+  // style="width: 15em;"
+  $(`<form id="dialogid"><div><b>Title</b></div><input type="text" size=20 required="required" value="New Title"style="z-index:10000" name=${titleID}><br><br><div><b>Description</b></div><textarea name=${descriptionID} cols="21" rows="5" style="resize: none;" required="required">New Description</textarea><br></form>`)
+  .attr('title', 'New ToDo Item')
     .dialog({
         modal: true,
-        width: 430,
-        height: 310,
+        resizable: false,
+        width: 'auto',
+        // maxWidth: 400,
+        // minWidth: 250,
+        height: 'auto',
+        // maxHeight: 310,
+        // minHeight: 310,
         buttons: {
           'OK': function () {
-            var title = $('input[name="title"]').val();
-            var description = $('textarea[name="description"]').val();
+            var title = $(`input[name=${titleID}]`).val();
+            var description = $(`textarea[name=${descriptionID}]`).val();
             if(title != "" && description != "") {
                 storeData(title, description, coord);
                 $(this).dialog('close');

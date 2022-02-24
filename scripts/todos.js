@@ -77,10 +77,10 @@ class TodoHandler {
     removeHint() {
         var parent = document.getElementById("list-section");
         var child = document.getElementById("item_add_hint");
-        parent.removeChild(child);
+        if (child != null) {
+            parent.removeChild(child);
+        }
     }
-
-    
 
     removeItemFromDocument(item) {
         var h3 = document.getElementById("item_h3_"+ item.id);
