@@ -57,12 +57,28 @@ function listItemClickCallback(item) {
 }
 
 function deleteTodoItemButtonCallback(item) {
-    mapHandler.deleteID(item.id);
-    todoHandler.deleteID(item.id);
 
-    activateFirstTodo();
-    $("#list").accordion("option", "active", 0);
-    $( "#list" ).accordion("refresh");
+    $('<form id="deleteItemForm">Do you really want to delete the item?</form>')
+    .attr('title', 'Delete Item?')
+    .dialog({
+        modal: true,
+        // width: 430,
+        // height: 310,
+        buttons: {
+          'Yes': function () {
+            mapHandler.deleteID(item.id);
+            todoHandler.deleteID(item.id);
+        
+            activateFirstTodo();
+            $("#list").accordion("option", "active", 0);
+            $( "#list" ).accordion("refresh");
+            $(this).dialog('close');
+          },
+          'No': function () {
+            $(this).dialog('close');
+          }
+        }
+      });
 
 }
 
