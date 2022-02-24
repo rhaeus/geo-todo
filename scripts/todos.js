@@ -14,14 +14,15 @@ var IDGenerator = (function() {
       getID: function () {
         return id++;
       },
-      init: function(start) {
-        id = start;
+      init: function(startValue) {
+        id = startValue;
       }
     };
   })();
 
 class TodoHandler {
     constructor() {
+        this.todoList = [];
         this.initTodos();
     }
 
@@ -116,6 +117,7 @@ class TodoHandler {
     }
 
     loadData() {
+        this.todoList = [];
         this.todoList = JSON.parse(localStorage.getItem("todos"));
         var startID = 0;
         for (let i = 0; i < this.todoList.length; ++i) {
