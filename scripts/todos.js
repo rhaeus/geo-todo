@@ -117,8 +117,12 @@ class TodoHandler {
     }
 
     loadData() {
-        this.todoList = [];
         this.todoList = JSON.parse(localStorage.getItem("todos"));
+        if (this.todoList == null) { //no data stored
+            this.todoList = [];
+            return;
+        }
+        
         var startID = 0;
         for (let i = 0; i < this.todoList.length; ++i) {
             if (this.todoList[i].id > startID) {
