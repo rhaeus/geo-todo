@@ -13,7 +13,8 @@ window.onload = function() {
         mapHandler.addTodoMarker(todos[i]);
     }
     activateFirstTodo();
-    startLightSensor();
+    // startLightSensor();
+    ambientLight();
 };
 
 function getPositionSuccess(position) {
