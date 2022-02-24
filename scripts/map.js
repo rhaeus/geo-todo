@@ -43,6 +43,8 @@ class MapHandler {
             showPositionButtonCallback();
         }, {position: 'bottomright'}).addTo( this.map );
 
+        // $(window).on("resize", function () { $("#map").height($(window).height()); this.map.invalidateSize(); }).trigger("resize");
+
 
         // _fixEasyButtonSize(easyButton);
     }

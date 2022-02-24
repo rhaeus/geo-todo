@@ -69,7 +69,7 @@ class TodoHandler {
     }
 
     addItemToDocument(item) {
-        console.log(item.id);
+        // console.log(item.id);
         let h3 = document.createElement('h3');
         // let a = document.createElement('a');
         h3.id = "item_h3_"+ item.id;
@@ -122,7 +122,7 @@ class TodoHandler {
             this.todoList = [];
             return;
         }
-        
+
         var startID = 0;
         for (let i = 0; i < this.todoList.length; ++i) {
             if (this.todoList[i].id > startID) {
