@@ -134,11 +134,14 @@ function toggleTheme() {
 function openListSection() {
     document.getElementById("list-panel").style.width = "20rem";
     document.getElementById("map-panel").style.marginLeft = "21rem";
+    document.getElementById("map-panel").style.width = "calc(100% - 21rem)";
+
   }
   
 function closeListSection() {
     document.getElementById("list-panel").style.width = "0rem";
     document.getElementById("map-panel").style.marginLeft = "0rem";
+    document.getElementById("map-panel").style.width = "100%";
 }
 
 function toggleListSection() {
