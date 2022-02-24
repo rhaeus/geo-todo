@@ -7,6 +7,15 @@ class LocationHandler {
         }
     }
 
+    startLocationObserver(successCallback) {
+        if (navigator.geolocation) {
+            // navigator.geolocation.getCurrentPosition(successCallback, this.getPositionFail);
+            navigator.geolocation.watchPosition(successCallback, this.getPositionFail)
+        } else { 
+            alert("Geolocation is not supported by this browser.");
+        }
+    }
+
 
      getPositionFail(error) {
         this.showError(error);
