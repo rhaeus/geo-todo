@@ -69,11 +69,8 @@ class TodoHandler {
     }
 
     addItemToDocument(item) {
-        // console.log(item.id);
         let h3 = document.createElement('h3');
-        // let a = document.createElement('a');
         h3.id = "item_h3_"+ item.id;
-        // h3.appendChild(a);
         let div = document.createElement('div');
         div.id = "item_div_"+ item.id;
         let p = document.createElement('p');
@@ -107,9 +104,8 @@ class TodoHandler {
 
     storeData() {
         if (typeof(Storage) !== "undefined") {
-        // Code for localStorage/sessionStorage.
-        localStorage.setItem("todos", JSON.stringify(this.todoList));
-        console.log("data stored");
+            localStorage.setItem("todos", JSON.stringify(this.todoList));
+            console.log("data stored");
 
         } else {
         console.log("Sorry! No Web Storage support..");

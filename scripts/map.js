@@ -21,7 +21,7 @@ class MapHandler {
         this.map = L.map('map', {zoomControl: false});
         this.map.setView([coord.lat, coord.long], 13);
     
-        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+        this.layer = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
             attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
             maxZoom: 18,
             id: 'mapbox/streets-v11',
@@ -42,20 +42,15 @@ class MapHandler {
         var easyButton = L.easyButton('<i class="material-icons">gps_fixed </i>', function(btn, map){
             showPositionButtonCallback();
         }, {position: 'bottomright'}).addTo( this.map );
-
         // $(window).on("resize", function () { $("#map").height($(window).height()); this.map.invalidateSize(); }).trigger("resize");
+        // $(window).on("resize", function () { this.map.invalidateSize(); }).trigger("resize");
 
-
-        // _fixEasyButtonSize(easyButton);
+        // map.invalidateSize()
     }
 
-    _fixEasyButtonSize(button) {
-        var buttonElement = button.button;
-        buttonElement.style.padding = '0px';
-        buttonElement.style.width = "26px";
-        buttonElement.style.height = "26px";
-        buttonElement.style.minWidth = "26px";
-        buttonElement.style.minHeight = "26px";
+    invalidate() {
+        this.map.invalidateSize();
+        this.layer.redraw();
     }
 
     clearMarkers() {
@@ -96,13 +91,7 @@ class MapHandler {
         content.appendChild(description);
         content.appendChild(deleteToDoButton);
 
-        // L.popup()
-        //     .setLatLng(e.latlng)
-        //     .setContent(addToDoButton)
-        //     .openOn(this.map);
-
-        // marker.bindPopup("<b>"+ todo.title + "</b><br>" + todo.description).openPopup();
-        marker.bindPopup(content);//.openPopup();
+        marker.bindPopup(content);
         marker.addTo(this.map);
         if (!marker.isPopupOpen()) {
             marker.openPopup();
@@ -119,7 +108,6 @@ class MapHandler {
             }
         }
     }
-
 
 
     setMapFocus(coord) {

@@ -5,7 +5,6 @@ var todoHandler = new TodoHandler();
 
 
 window.onload = function() {
-    // initMap(new Coord(49.01402868891351, 8.40428765576787));
     locationHandler.getLocation(getPositionSuccess);
     var todos = todoHandler.getTodoList();
     mapHandler.clearMarkers();
@@ -24,10 +23,7 @@ function getPositionSuccess(position) {
 }
 
 function addTodoItemCallback(coord) {
-    // console.log(coord);
-
     $('<form id="addItemForm"><div><b>Title</b></div><input type="text" size="39" required="required" value="New Title"style="z-index:10000" name="title"><br><br><div><b>Description</b></div><textarea name="description" cols="40" rows="5" required="required">New Description</textarea><br></form>')
-    // .data('coord', coord)
     .attr('title', 'New ToDo Item')
     .dialog({
         modal: true,
@@ -37,9 +33,6 @@ function addTodoItemCallback(coord) {
           'OK': function () {
             var title = $('input[name="title"]').val();
             var description = $('textarea[name="description"]').val();
-            // var coord = $("#addItemForm").data('coord');
-            // console.log(coord);
-
             if(title != "" && description != "") {
                 storeData(title, description, coord);
                 $(this).dialog('close');
@@ -53,7 +46,6 @@ function addTodoItemCallback(coord) {
 }
 
 function storeData(title, description, coord) {
-    // console.log(coord);
     var todo = todoHandler.addTodo(title, description, coord);
     mapHandler.addTodoMarker(todo);
     $( "#list" ).accordion("refresh");
@@ -61,19 +53,10 @@ function storeData(title, description, coord) {
 }
 
 function listItemClickCallback(item) {
-    // console.log(item);
     mapHandler.focusID(item.id);
 }
 
 function deleteTodoItemButtonCallback(item) {
-    // var activeIndex = 1;
-    // console.log(activeIndex);
-    // var todos = todoHandler.getTodoList();
-    // if(todoHandler == 0) {
-    //     return;
-    // }
-    // var activeIndex = jQuery("#list").accordion('option', 'active');
-    // var toDelete = todos[activeIndex];
     mapHandler.deleteID(item.id);
     todoHandler.deleteID(item.id);
 
@@ -86,7 +69,6 @@ function deleteTodoItemButtonCallback(item) {
 function activateFirstTodo() {
     if (todoHandler.getTodoCount() > 0) {
         var firstId = todoHandler.getTodoList()[0].id;
-        // console.log(firstId);
         mapHandler.focusID(firstId);
     }
 }
@@ -132,7 +114,6 @@ function setTheme(theme) {
           autoTheme = false;
           break;
         case "Auto":
-            // code block
             autoTheme = true;
             break;
         default:
@@ -143,7 +124,6 @@ function setTheme(theme) {
 function toggleTheme() {
     const theme = document.querySelector("#theme-link");
     const jqueryTheme = document.querySelector("#jquery-theme-link");
-    // If the current URL contains "ligh-theme.css"
     if (theme.getAttribute("href") == "styles/light-theme.css") {
         setDarkTheme();
     } else {
@@ -151,28 +131,21 @@ function toggleTheme() {
     }
 }
 
-/* Set the width of the sidebar to 250px and the left margin of the page content to 250px */
 function openListSection() {
     document.getElementById("list-panel").style.width = "20rem";
     document.getElementById("map-panel").style.marginLeft = "21rem";
   }
   
-/* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
 function closeListSection() {
     document.getElementById("list-panel").style.width = "0rem";
     document.getElementById("map-panel").style.marginLeft = "0rem";
 }
 
 function toggleListSection() {
-    console.log(document.getElementById("list-panel").style.width);
     if (document.getElementById("list-panel").style.width == "0rem") {
         openListSection();
     } else {
         closeListSection();
     }
+    mapHandler.invalidate();
 }
-
-// var hamburger = document.querySelector(".hamburger");
-// hamburger.addEventListener("click", function(){
-//     document.querySelector("body").classList.toggle("active");
-// })

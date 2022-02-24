@@ -4,12 +4,7 @@ html, body {
 .container {
     height: 100vh;
 }
-/* .container {
-    height: 100vh;
-    display: grid;
-    grid-template-columns: 1fr 3fr;
-    grid-gap: 20px;
-} */
+
 .map-panel {
     height: 100%;
     transition: margin-left .5s;
@@ -19,20 +14,17 @@ html, body {
 /* https://stackoverflow.com/questions/16543446/how-to-make-leaflet-map-height-variable */
 #map { 
 
-    height: calc(100% - 20px); 
-    /* height:100%; */
+    /* height: calc(100% - 20px);  */
+    height:99%;
+    /* width:auto; */
 }
 
 .list-panel {
-    /* padding-top: 20px; */
     height: 100%;
     display: flex;
     flex-direction: column;
     overflow-y:auto;
     position: fixed;
-    /* top: 0;
-    left: 0; */
-    transition: 0.5s;
     width: 20rem;
 }
 
@@ -46,49 +38,11 @@ html, body {
     margin-bottom: 25px;
 }
 
-/* #main {
-   transition: margin-left .5s;
-} */
-
 .collapseBtn {
     position: absolute;
     z-index: 999 !important ;
     margin: 10px;
-    /* background-color: white;
-    color: black;
-    border-color: black;
-    border-width: 10px; */
-
-    /* visibility: visible; */
 }
-
-
-
-/* #map { height: calc(100% - 20px); width: 100%; position: absolute !important; } */
-/* #map{
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 100%;
-    height:100%;
-  } */
-
-  /* html, body { 
-    height: 100%; 
-}
-#map {
-  width: 100%;
-  height: 100%;
-} */
-/* 
-body {
-    padding: 0;
-    margin: 0;
-}
-html, body, #map {
-    height: 100%;
-    width: 100%;
-} */
 
 .ui-dialog { 
     z-index: 1000 !important ;
@@ -100,8 +54,6 @@ html, body, #map {
     --map-tiles-filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3) brightness(0.7);
     color-scheme: light dark; /* both supported */
 }
-
-
 
 .leaflet-bar button {
     padding: 0;
