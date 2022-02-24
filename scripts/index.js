@@ -162,7 +162,7 @@ function handleBigScreen(e) {
   // Check if the media query is true
   if (e.matches) {
     // Then log the following message to the console
-    // console.log('Media Query big Matched!');
+    console.log('Media Query big Matched!');
     openListSection();
   }
 }
@@ -182,7 +182,7 @@ function handleSmallScreen(e) {
   // Check if the media query is true
   if (e.matches) {
     // Then log the following message to the console
-    // console.log('Media Query Small Matched!');
+    console.log('Media Query Small Matched!');
     closeListSection();
   }
 }
