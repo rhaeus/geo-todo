@@ -43,10 +43,12 @@ function ambientLight() {
         // }
 
         // https://en.wikipedia.org/wiki/Lux#Illuminance
-        if (als.illuminance < 20) {
-          setDarkTheme();
-        } else if (als.illuminance > 50) {
-          setLightTheme();
+        if(autoTheme) {
+          if (als.illuminance < 20) {
+            setDarkTheme();
+          } else if (als.illuminance > 50) {
+            setLightTheme();
+          }
         }
     });
 

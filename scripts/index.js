@@ -120,6 +120,26 @@ function setLightTheme(){
     theme.href = "styles/light-theme.css";
 }
 
+var autoTheme = false;
+function setTheme(theme) {
+    switch(theme) {
+        case "Light":
+          setLightTheme();
+          autoTheme = false;
+          break;
+        case "Dark":
+          setDarkTheme();
+          autoTheme = false;
+          break;
+        case "Auto":
+            // code block
+            autoTheme = true;
+            break;
+        default:
+          // code block
+      }
+}
+
 function toggleTheme() {
     const theme = document.querySelector("#theme-link");
     const jqueryTheme = document.querySelector("#jquery-theme-link");
