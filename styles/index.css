@@ -19,6 +19,18 @@ html, body {
 
 .list-panel {
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-y:auto
+}
+
+.list-section {
+    overflow:auto;
+}
+
+.theme-section {
+    margin-top: auto;
+    margin-bottom: 25px;
 }
 /* #map { height: calc(100% - 20px); width: 100%; position: absolute !important; } */
 /* #map{
