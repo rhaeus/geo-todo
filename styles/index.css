@@ -19,6 +19,12 @@
 }
 
 
+.leaflet-bar button {
+    padding: 0;
+    line-height:26px;
+    font-size:35px
+}
+
 
 
 

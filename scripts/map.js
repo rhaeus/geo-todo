@@ -18,8 +18,8 @@ class MapHandler {
     };
 
     initMap(coord) {
-        this.map = L.map('map').setView([coord.lat, coord.long], 13);
-        // this.map.setView([coord.lat, coord.long], 13);
+        this.map = L.map('map', {zoomControl: false});
+        this.map.setView([coord.lat, coord.long], 13);
     
         L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
             attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -31,9 +31,29 @@ class MapHandler {
             accessToken: 'pk.eyJ1IjoiZmF2ZW4iLCJhIjoiY2t6eTQ1bTcxMDdpeDJvcDdyMXpsdWY2eSJ9.WOT1zI_rz4ESogcJYieYMQ'
         }).addTo(this.map);
 
+        L.control.zoom({
+            position: 'bottomright'
+        }).addTo(this.map);
+
         this.map.on('click', this.onMapClick, this);
 
         this.todoMarkers = [];
+
+        var easyButton = L.easyButton('<i class="material-icons">gps_fixed </i>', function(btn, map){
+            showPositionButtonCallback();
+        }, {position: 'bottomright'}).addTo( this.map );
+
+
+        // _fixEasyButtonSize(easyButton);
+    }
+
+    _fixEasyButtonSize(button) {
+        var buttonElement = button.button;
+        buttonElement.style.padding = '0px';
+        buttonElement.style.width = "26px";
+        buttonElement.style.height = "26px";
+        buttonElement.style.minWidth = "26px";
+        buttonElement.style.minHeight = "26px";
     }
 
     clearMarkers() {
