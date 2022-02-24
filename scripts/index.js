@@ -21,7 +21,6 @@ function getPositionSuccess(position) {
     var coord = new Coord(position.coords.latitude, position.coords.longitude);
     mapHandler.setMapFocus(coord);
     mapHandler.showLocationMarker(coord);
-
 }
 
 function addTodoItemCallback(coord) {
@@ -29,7 +28,7 @@ function addTodoItemCallback(coord) {
   var titleID = "title" + id;
   var descriptionID = "description" + id;
   // style="width: 15em;"
-  $(`<form id="dialogid"><div><b>Title</b></div><input type="text" size=20 required="required" value="New Title"style="z-index:10000" name=${titleID}><br><br><div><b>Description</b></div><textarea name=${descriptionID} cols="21" rows="5" style="resize: none;" required="required">New Description</textarea><br></form>`)
+  $(`<form id="dialogid"><div><b>Title</b></div><input type="text" size=20 onfocus="this.select();" required="required" value="New Title"style="z-index:10000" name=${titleID}><br><br><div><b>Description</b></div><textarea name=${descriptionID} cols="21" rows="5" style="resize: none;" onfocus="this.select();" required="required">New Description</textarea><br></form>`)
   .attr('title', 'New ToDo Item')
     .dialog({
         modal: true,
