@@ -159,13 +159,13 @@ function openListSection() {
   
 /* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
 function closeListSection() {
-    document.getElementById("list-panel").style.width = "0";
-    document.getElementById("map-panel").style.marginLeft = "0";
+    document.getElementById("list-panel").style.width = "0rem";
+    document.getElementById("map-panel").style.marginLeft = "0rem";
 }
 
 function toggleListSection() {
     console.log(document.getElementById("list-panel").style.width);
-    if (document.getElementById("list-panel").style.width == "0px") {
+    if (document.getElementById("list-panel").style.width == "0rem") {
         openListSection();
     } else {
         closeListSection();
