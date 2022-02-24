@@ -152,3 +152,43 @@ function toggleListSection() {
     }
     mapHandler.invalidate();
 }
+
+
+
+
+const mediaQueryBigScreen = window.matchMedia('(min-width: 60rem)');
+
+function handleBigScreen(e) {
+  // Check if the media query is true
+  if (e.matches) {
+    // Then log the following message to the console
+    // console.log('Media Query big Matched!');
+    openListSection();
+  }
+}
+
+// Register event listener
+mediaQueryBigScreen.addListener(handleBigScreen);
+
+// Initial check
+// handleBigScreen(mediaQueryBigScreen);
+
+
+
+
+const mediaQuerySmallScreen = window.matchMedia('(max-width: 60rem)');
+
+function handleSmallScreen(e) {
+  // Check if the media query is true
+  if (e.matches) {
+    // Then log the following message to the console
+    // console.log('Media Query Small Matched!');
+    closeListSection();
+  }
+}
+
+// Register event listener
+mediaQuerySmallScreen.addListener(handleSmallScreen);
+
+// Initial check
+// handleSmallScreen(mediaQuerySmallScreen);
