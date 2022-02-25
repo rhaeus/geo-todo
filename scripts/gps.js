@@ -1,7 +1,11 @@
 class LocationHandler {
-    getLocation(successCallback) {
+    constructor() {
+        this.watcherID = null;
+    }
+
+    getLocation(successCallback, failCallback) {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(successCallback, this.getPositionFail);
+            navigator.geolocation.getCurrentPosition(successCallback, failCallback, {timeout:2000});
         } else { 
             alert("Geolocation is not supported by this browser.");
         }
@@ -9,10 +13,16 @@ class LocationHandler {
 
     startLocationObserver(successCallback) {
         if (navigator.geolocation) {
-            // navigator.geolocation.getCurrentPosition(successCallback, this.getPositionFail);
-            navigator.geolocation.watchPosition(successCallback, this.getPositionFail)
+            this.watcherID = navigator.geolocation.watchPosition(successCallback, this.getPositionFail, {timeout:300})
         } else { 
             alert("Geolocation is not supported by this browser.");
+        }
+    }
+
+    stopLocationObserver() {
+        if (this.watcherID != null) {
+            navigator.geolocation.clearWatch(this.watcherID);
+            this.watcherID = null;
         }
     }
 

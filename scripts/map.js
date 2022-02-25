@@ -113,6 +113,7 @@ class MapHandler {
 
     setMapFocus(coord) {
         this.map.setView([coord.lat, coord.long], 13);
+        this.invalidate();
     }
 
     focusID(id) {
@@ -129,6 +130,14 @@ class MapHandler {
                 break;
             }
         }
+    }
+
+    focusLocationMarker() {
+        var latlng = this.position_marker.getLatLng();
+        var lat = latlng.lat;
+        var lng = latlng.lng;
+        var coord = new Coord(lat, lng);
+        this.setMapFocus(coord);
     }
 
 

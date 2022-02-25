@@ -3,10 +3,14 @@ var locationHandler = new LocationHandler();
 var mapHandler = new MapHandler(new Coord(49.01402868891351, 8.40428765576787));
 var todoHandler = new TodoHandler();
 
+// var intervalId = setInterval(function() {
+//   locationHandler.getLocation(updatePosition, null);
+// }, 5000);
 
 window.onload = function() {
-    locationHandler.getLocation(getPositionSuccess);
-    locationHandler.startLocationObserver(getPositionSuccess);
+    locationHandler.getLocation(updateAndFocusPosition, mapHandler.focusLocationMarker);
+    locationHandler.startLocationObserver(updatePosition);
+    
 
     var todos = todoHandler.getTodoList();
     mapHandler.clearMarkers();
@@ -18,10 +22,15 @@ window.onload = function() {
     loadTheme();
 };
 
-function getPositionSuccess(position) {
+function updateAndFocusPosition(position) {
     var coord = new Coord(position.coords.latitude, position.coords.longitude);
-    mapHandler.setMapFocus(coord);
     mapHandler.showLocationMarker(coord);
+    mapHandler.setMapFocus(coord);
+}
+
+function updatePosition(position) {
+  var coord = new Coord(position.coords.latitude, position.coords.longitude);
+  mapHandler.showLocationMarker(coord);
 }
 
 function addTodoItemCallback(coord) {
@@ -111,7 +120,9 @@ function mapMarkerClick(id) {
 }
 
 function showPositionButtonCallback() {
-    locationHandler.getLocation(getPositionSuccess);
+  locationHandler.stopLocationObserver();
+  locationHandler.getLocation(updateAndFocusPosition);
+  locationHandler.startLocationObserver(updatePosition);
 }
 
 
@@ -154,8 +165,6 @@ function setTheme(theme) {
 function storeTheme(theme) {
   if (typeof(Storage) !== "undefined") {
       localStorage.setItem("theme", JSON.stringify(theme));
-      // console.log("theme stored");
-
   } else {
     console.log("Sorry! No Web Storage support..");
   }
@@ -186,9 +195,6 @@ function loadTheme() {
       setTheme(theme);
     }
   )
-
-
-  // console.log("theme restored");
 }
 
 

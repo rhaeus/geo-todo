@@ -127,8 +127,6 @@ class TodoHandler {
     storeData() {
         if (typeof(Storage) !== "undefined") {
             localStorage.setItem("todos", JSON.stringify(this.todoList));
-            // console.log("data stored");
-
         } else {
         console.log("Sorry! No Web Storage support..");
         }
@@ -149,7 +147,6 @@ class TodoHandler {
             }
         }
         IDGenerator.init(startID+1);
-        // console.log("data restored");
     }
 }
 
