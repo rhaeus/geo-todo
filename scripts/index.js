@@ -15,6 +15,7 @@ window.onload = function() {
     }
     activateFirstTodo();
     ambientLight();
+    loadTheme();
 };
 
 function getPositionSuccess(position) {
@@ -131,21 +132,46 @@ function setLightTheme(){
 var autoTheme = false;
 function setTheme(theme) {
     switch(theme) {
-        case "Light":
+        case "light":
           setLightTheme();
           autoTheme = false;
           break;
-        case "Dark":
+        case "dark":
           setDarkTheme();
           autoTheme = false;
           break;
-        case "Auto":
+        case "auto":
             autoTheme = true;
             break;
-        default:
+        // default:
           // code block
       }
+      storeTheme(theme);
 }
+
+function storeTheme(theme) {
+  if (typeof(Storage) !== "undefined") {
+      localStorage.setItem("theme", JSON.stringify(theme));
+      console.log("theme stored");
+
+  } else {
+    console.log("Sorry! No Web Storage support..");
+  }
+}
+
+function loadTheme() {
+  var theme = JSON.parse(localStorage.getItem("theme"));
+  if (theme == null || !['light', 'dark', 'auto'].includes(theme)) { //no data stored
+      theme = 'light';
+  }
+  setTheme(theme);
+
+  var radio = document.getElementById(`radio-${theme}-theme`);
+  radio.checked = true;
+
+  console.log("theme restored");
+}
+
 
 function toggleTheme() {
     const theme = document.querySelector("#theme-link");
