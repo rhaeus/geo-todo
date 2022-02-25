@@ -38,6 +38,7 @@ class MapHandler {
         this.map.on('click', this.onMapClick, this);
 
         this.todoMarkers = [];
+        this.position_marker = null;
 
         var easyButton = L.easyButton('<i class="material-icons">gps_fixed </i>', function(btn, map){
             showPositionButtonCallback();
@@ -139,9 +140,13 @@ class MapHandler {
             fillOpacity: 1
         };
 
+        if (this.position_marker != null) {
+            //remove old position marker
+            this.map.removeLayer(this.position_marker); 
+        }
+        //add new position marker
         this.position_marker = L.circleMarker([coord.lat, coord.long], markerOptions);
         this.position_marker.bindPopup("<b>You are here</b>").openPopup();
-        this.map.removeLayer(this.position_marker);
         this.position_marker.addTo(this.map);
     }
 
