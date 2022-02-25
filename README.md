@@ -24,8 +24,8 @@ Add a new item:
 
 Smaller screen:
 <p float="left">
-  <img src="/screenshots/4.png" width="500" />
-  <img src="/screenshots/5.png" width="500" />
+  <img src="/screenshots/4.png" width="400" />
+  <img src="/screenshots/5.png" width="400" />
 </p>
 
 Phone portrait mode
@@ -34,7 +34,7 @@ Phone portrait mode
   <img src="/screenshots/7.png" width="300" />
 </p>
 
-Phone lanscrape mode
+Phone landscape mode
 <p float="left">
   <img src="/screenshots/8.png" width="500" />
   <img src="/screenshots/9.png" width="500" />
