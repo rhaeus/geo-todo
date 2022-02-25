@@ -40,7 +40,7 @@ class TodoHandler {
 
     initTodos() {
         this.todoList = [];
-        this.loadData();
+        this.loadTodos();
         this.showTodosInList();
     }
 
@@ -127,14 +127,14 @@ class TodoHandler {
     storeData() {
         if (typeof(Storage) !== "undefined") {
             localStorage.setItem("todos", JSON.stringify(this.todoList));
-            console.log("data stored");
+            // console.log("data stored");
 
         } else {
         console.log("Sorry! No Web Storage support..");
         }
     }
 
-    loadData() {
+    loadTodos() {
         this.todoList = JSON.parse(localStorage.getItem("todos"));
         if (this.todoList == null || this.todoList.length == 0) { //no data stored
             this.todoList = [];
@@ -149,7 +149,7 @@ class TodoHandler {
             }
         }
         IDGenerator.init(startID+1);
-        console.log("data restored");
+        // console.log("data restored");
     }
 }
 

@@ -143,8 +143,10 @@ function setTheme(theme) {
         case "auto":
             autoTheme = true;
             break;
-        // default:
-          // code block
+        default:
+          setLightTheme(); //default to light theme
+          autoTheme = false;
+          break;
       }
       storeTheme(theme);
 }
@@ -152,7 +154,7 @@ function setTheme(theme) {
 function storeTheme(theme) {
   if (typeof(Storage) !== "undefined") {
       localStorage.setItem("theme", JSON.stringify(theme));
-      console.log("theme stored");
+      // console.log("theme stored");
 
   } else {
     console.log("Sorry! No Web Storage support..");
@@ -164,12 +166,29 @@ function loadTheme() {
   if (theme == null || !['light', 'dark', 'auto'].includes(theme)) { //no data stored
       theme = 'light';
   }
-  setTheme(theme);
+  
+  isAmbientSensorAvailable().then(
+    value => {
+      // console.log("ambient sensor available");
+      var radio = document.getElementById(`radio-${theme}-theme`);
+      radio.checked = true;
+      setTheme(theme);
+    },
+    reason => {
+      // console.log("sensor not available");
+      var radioAuto = document.getElementById(`radio-auto-theme`);
+      radioAuto.disabled = true;
+      if (theme == 'auto') {
+        theme = 'light'; //default to white
+      }
+      var radio = document.getElementById(`radio-${theme}-theme`);
+      radio.checked = true;
+      setTheme(theme);
+    }
+  )
 
-  var radio = document.getElementById(`radio-${theme}-theme`);
-  radio.checked = true;
 
-  console.log("theme restored");
+  // console.log("theme restored");
 }
 
 
@@ -223,7 +242,7 @@ function handleBigScreen(e) {
   // Check if the media query is true
   if (e.matches) {
     // Then log the following message to the console
-    console.log('Media Query big Matched!');
+    // console.log('Media Query big Matched!');
     // bigScreen=true;
     openListSection();
   }
@@ -244,7 +263,7 @@ function handleSmallScreen(e) {
   // Check if the media query is true
   if (e.matches) {
     // Then log the following message to the console
-    console.log('Media Query Small Matched!');
+    // console.log('Media Query Small Matched!');
     // bigScreen=false;
     closeListSection();
   }
