@@ -149,7 +149,6 @@ function setTheme(theme) {
 
 function toggleTheme() {
     const theme = document.querySelector("#theme-link");
-    const jqueryTheme = document.querySelector("#jquery-theme-link");
     if (theme.getAttribute("href") == "styles/light-theme.css") {
         setDarkTheme();
     } else {
@@ -158,20 +157,29 @@ function toggleTheme() {
 }
 
 function openListSection() {
-    document.getElementById("list-panel").style.width = "20rem";
-    document.getElementById("map-panel").style.marginLeft = "21rem";
-    document.getElementById("map-panel").style.width = "calc(100% - 21rem)";
+    document.getElementById("list-panel").style.width = "clamp(15em, 20%, 80%)";
+    // var width = $("#list-panel").width();
+    // var cwidth = $(".container").width();
+    // console.log(width);
+    // var mapWidth = cwidth-width;
+
+    document.getElementById("map-panel").style.marginLeft = "max(21%, 16em)";
+    // document.getElementById("map-panel").style.marginLeft = `${width}px`;
+    // document.getElementById("map-panel").style.width = "min(79%, calc(100%-16em))";
+    // document.getElementById("map-panel").style.width = `calc(100%-${width}px)`;
+    document.getElementById("map-panel").style.width = `auto`;
+    // document.getElementById("map-panel").style.width = `${mapWidth}px`;
 
   }
   
 function closeListSection() {
-    document.getElementById("list-panel").style.width = "0rem";
-    document.getElementById("map-panel").style.marginLeft = "0rem";
+    document.getElementById("list-panel").style.width = "0%";
+    document.getElementById("map-panel").style.marginLeft = "0%";
     document.getElementById("map-panel").style.width = "100%";
 }
 
 function toggleListSection() {
-    if (document.getElementById("list-panel").style.width == "0rem") {
+    if (document.getElementById("list-panel").style.width == "0%") {
         openListSection();
     } else {
         closeListSection();
@@ -181,6 +189,7 @@ function toggleListSection() {
 
 
 
+// var bigScreen=true;
 
 const mediaQueryBigScreen = window.matchMedia('(min-width: 60rem)');
 
@@ -189,6 +198,7 @@ function handleBigScreen(e) {
   if (e.matches) {
     // Then log the following message to the console
     console.log('Media Query big Matched!');
+    // bigScreen=true;
     openListSection();
   }
 }
@@ -197,7 +207,7 @@ function handleBigScreen(e) {
 mediaQueryBigScreen.addListener(handleBigScreen);
 
 // Initial check
-// handleBigScreen(mediaQueryBigScreen);
+handleBigScreen(mediaQueryBigScreen);
 
 
 
@@ -209,6 +219,7 @@ function handleSmallScreen(e) {
   if (e.matches) {
     // Then log the following message to the console
     console.log('Media Query Small Matched!');
+    // bigScreen=false;
     closeListSection();
   }
 }
@@ -217,4 +228,4 @@ function handleSmallScreen(e) {
 mediaQuerySmallScreen.addListener(handleSmallScreen);
 
 // Initial check
-// handleSmallScreen(mediaQuerySmallScreen);
+handleSmallScreen(mediaQuerySmallScreen);

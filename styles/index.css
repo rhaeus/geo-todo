@@ -1,8 +1,19 @@
-html, body {
+:root {
+    /* https://css-tricks.com/a-complete-guide-to-dark-mode-on-the-web/ */
+    /* map dark mode  */
+    --map-tiles-filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3) brightness(0.7);
+    color-scheme: light dark; /* both supported */
     height: 100%;
+}
+
+html, body, main {
+    height: 100%;
+    overflow: hidden;
+
  }
 .container {
-    height: 100vh;
+    height: 100%;
+    /* width: 100vw; */
 }
 
 .map-panel {
@@ -16,7 +27,7 @@ html, body {
 /* https://stackoverflow.com/questions/16543446/how-to-make-leaflet-map-height-variable */
 #map { 
     /* height: calc(100% - 20px);  */
-    height:99%;
+    height:98%;
     /* width:auto; */
 }
 
@@ -26,7 +37,8 @@ html, body {
     flex-direction: column;
     overflow-y:auto;
     position: fixed;
-    /* width: 20rem; */
+    /* min-width: 15rem;
+    max-width: 80%; */
 }
 
 
@@ -49,12 +61,6 @@ html, body {
     z-index: 1000 !important ;
 }
 
-:root {
-    /* https://css-tricks.com/a-complete-guide-to-dark-mode-on-the-web/ */
-    /* map dark mode  */
-    --map-tiles-filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3) brightness(0.7);
-    color-scheme: light dark; /* both supported */
-}
 
 .leaflet-bar button {
     padding: 0;
@@ -74,12 +80,16 @@ html, body {
 /* big screen */
 @media (min-width: 60rem){
     .map-panel {
-        margin-left: 21rem;
-        width: calc(100% - 21rem);
+        margin-left: max(21%, 16rem);
+        /* width: min(79%, calc(100%-16rem)); */
+        /* width: 79%; */
+        width: auto;
     }
     
     .list-panel {
-        width: 20rem;
+        /* width: 20%; */
+        /* width: min(min(20%,15rem),80%); */
+        width: clamp(15rem, 20%, 80%);
     }
 }
 
@@ -88,11 +98,10 @@ html, body {
     .map-panel {
         margin-left: 0rem;
         width: 100%;
-    
     }
     
     .list-panel {
-        width: 0rem;
+        width: 0%;
     }
 }
 
